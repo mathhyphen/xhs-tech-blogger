@@ -103,14 +103,23 @@ xhs_openclaw/
 
 ## 关于封面图
 
-**默认不生成封面图**，原因：
-- 小红书对图片风格有特定要求
-- 用户通常有自己的封面模板
+**默认配置**: `enabled: false`
 
-**如需封面图，建议**：
-- 手动上传自己的封面模板
-- 使用 nano-banana-pro skill 生成
-- 使用其他AI图片工具
+如需自动生成封面图，修改 `config.json`:
+```json
+{
+  "image_generation": {
+    "enabled": true,
+    "provider": "nano-banana-pro",
+    "skill_name": "nano-banana-pro"
+  }
+}
+```
+
+并确保已安装 nano-banana-pro:
+```bash
+npx clawhub@latest install nano-banana-pro
+```
 
 ## 注意事项
 

@@ -88,14 +88,24 @@ python xhs_auto_publish.py --latest
 
 **无需额外Python包**（纯标准库实现）
 
-## 封面图说明
+## 封面图（可选）
 
-默认不自动生成封面图，建议：
-- 使用自己的封面模板
-- 或使用 `nano-banana-pro` skill 生成：
-  ```bash
-  npx openclaw skills run nano-banana-pro
-  ```
+默认不自动生成封面图（`enabled: false`）。
+
+如需启用，修改 `config.json`:
+```json
+{
+  "image_generation": {
+    "enabled": true,
+    "provider": "nano-banana-pro"
+  }
+}
+```
+
+并安装 skill:
+```bash
+npx clawhub@latest install nano-banana-pro
+```
 
 ## License
 
