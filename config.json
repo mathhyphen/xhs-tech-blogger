@@ -1,0 +1,61 @@
+{
+  "name": "xhs-tech-blogger",
+  "version": "2.0.0",
+  "description": "小红书AI技术博主工具 - 多源新闻自动版",
+  "author": "AI Tech Blogger",
+  
+  "news_sources": {
+    "ai_news_collectors": {
+      "enabled": true,
+      "priority": 1,
+      "description": "AI新闻聚合与热度排序"
+    },
+    "news_aggregator": {
+      "enabled": true,
+      "priority": 2,
+      "sources": ["hackernews", "producthunt", "github", "36kr"],
+      "keywords": ["AI", "LLM", "GPT", "Claude", "DeepSeek", "Agent", "OpenAI"],
+      "description": "多源科技新闻聚合"
+    },
+    "techmeme": {
+      "enabled": true,
+      "priority": 3,
+      "description": "TechMeme实时科技新闻（使用OpenClaw Browser）"
+    }
+  },
+  
+  "xiaohongshu": {
+    "enabled": true,
+    "creator_url": "https://creator.xiaohongshu.com/publish/publish",
+    "default_tags": ["AI", "人工智能", "科技热点", "OpenAI", "小红书AI"],
+    "post_format": {
+      "title_template": "昨日AI圈{count}大真实热点｜多源汇总",
+      "header": "{date} AI圈真实热点\n（来源：多源聚合，已去重）\n",
+      "footer": "——\n📌 新闻来源：多源聚合（已去重）\n💡 你最关注哪一条？评论区聊聊\n➕ 关注我，每天AI热点不错过\n\n{tags}"
+    }
+  },
+  
+  "image_generation": {
+    "enabled": false,
+    "provider": "nano-banana-pro",
+    "skill_name": "nano-banana-pro",
+    "skill_path": "C:\\Users\\Administrator\\.openclaw\\workspace-coder\\openclaw-skills-repo\\skills\\steipete\\nano-banana-pro",
+    "description": "使用 nano-banana-pro skill 生成封面图（默认不启用）",
+    "command": "npx openclaw skills run nano-banana-pro",
+    "prompt_template": "AI daily news cover, dark blue gradient background, neon cyan glow effects, futuristic AI circuit patterns, clean minimalist style, vertical 3:4 layout, high quality",
+    "note": "如需启用封面图生成，将 enabled 设为 true"
+  },
+  
+  "output": {
+    "save_directory": "output",
+    "formats": ["txt"],
+    "auto_save": true
+  },
+  
+  "schedule": {
+    "enabled": false,
+    "cron": "0 9 * * *",
+    "timezone": "Asia/Shanghai",
+    "description": "每天上午9点自动运行"
+  }
+}

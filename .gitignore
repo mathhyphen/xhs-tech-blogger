@@ -25,9 +25,8 @@ venv/
 ENV/
 env/
 
-# Config with secrets
-config.json
-!config.example.json
+# Config with user secrets (keep example)
+# config.json - now included as default config
 
 # Output
 posts/
