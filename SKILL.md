@@ -2,12 +2,30 @@
 name: xhs-tech-blogger
 description: |
   小红书AI技术博主工具 - 自动生成AI日报并发布到小红书
-  触发词: "生成小红书日报", "发布到小红书", "xhs daily", "小红书AI新闻"
+  
+  功能：
+  - 自动从多源收集AI新闻（TechMeme, HN, ProductHunt等）
+  - 智能去重、筛选、排序
+  - 生成小红书格式文章
+  - 支持 nano-banana-pro 生成封面图
+  - 一键打开小红书创作平台
+  
+  使用方式：
+    npx openclaw skills run xhs-tech-blogger
+    npx openclaw skills run xhs-tech-blogger --publish
+  
+  触发词：@xhs, @小红书, 生成小红书日报, xhs daily
 ---
 
-# XHS Tech Blogger - 小红书AI博主工具
+# XHS Tech Blogger
 
 自动生成AI热点日报并发布到小红书
+
+## Installation
+
+```bash
+npx clawhub@latest install xhs-tech-blogger
+```
 
 ## Usage
 
@@ -23,35 +41,51 @@ npx openclaw skills run xhs-tech-blogger
 npx openclaw skills run xhs-tech-blogger --publish
 ```
 
-### 快捷触发词
+### 触发词（在聊天中使用）
 
-在聊天中输入：
-- "生成小红书日报"
-- "发布到小红书"
-- "xhs daily"
-- "小红书AI新闻"
-
-## Features
-
-- 🔥 自动收集多源AI新闻（TechMeme, HN, ProductHunt等）
-- 📝 生成小红书格式文章
-- 🎨 支持 nano-banana-pro 生成封面图
-- 📤 一键打开小红书创作平台
+- `@xhs 生成日报`
+- `@小红书 今天AI新闻`
+- `xhs daily`
+- `生成小红书日报`
 
 ## Configuration
 
-编辑 `config.json` 配置新闻源和小红书设置
+首次使用前，在 `~/.openclaw/openclaw.json` 中添加配置：
+
+```json
+{
+  "skills": {
+    "entries": {
+      "xhs-tech-blogger": {
+        "enabled": true
+      }
+    }
+  }
+}
+```
+
+## Features
+
+- 🔥 **多源新闻**：TechMeme, Hacker News, ProductHunt, 36Kr
+- 🔄 **智能去重**：自动去重、筛选、热度排序
+- 📝 **小红书格式**：自动生成适合小红书的文案格式
+- 🎨 **封面生成**：支持 nano-banana-pro 生成封面图
+- 📤 **一键发布**：自动打开小红书创作平台
 
 ## Output
 
-生成的文件保存在 `output/` 目录：
+生成的文件保存在 skill 目录下的 `output/`：
 - `xhs_ai_news_YYYYMMDD.txt` - 小红书格式文章
 
 ## Dependencies
 
-- OpenClaw Browser（用于发布）
-- nano-banana-pro（可选，用于封面图）
+- OpenClaw Browser（用于发布到小红书）
+- nano-banana-pro（可选，用于生成封面图）
 
 ## License
 
 MIT
+
+## Author
+
+mathhyphen

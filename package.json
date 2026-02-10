@@ -2,13 +2,41 @@
   "name": "xhs-tech-blogger",
   "version": "2.0.0",
   "description": "小红书AI技术博主工具 - 自动生成AI日报并发布到小红书",
-  "main": "scripts/generate_daily.py",
-  "scripts": {
-    "daily": "python scripts/generate_daily.py",
-    "publish": "python scripts/publish.py"
+  "main": "scripts/run.py",
+  "bin": {
+    "xhs-tech-blogger": "scripts/run.py",
+    "xhs-daily": "scripts/run.py"
   },
-  "keywords": ["xiaohongshu", "ai", "news", "blogger"],
+  "scripts": {
+    "daily": "python scripts/run.py",
+    "publish": "python scripts/run.py --publish"
+  },
+  "keywords": [
+    "xiaohongshu",
+    "xhs",
+    "ai",
+    "news",
+    "blogger",
+    "daily",
+    "openclaw-skill"
+  ],
   "author": "mathhyphen",
   "license": "MIT",
-  "dependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mathhyphen/xhs-tech-blogger.git"
+  },
+  "engines": {
+    "python": ">=3.9"
+  },
+  "openclaw": {
+    "skill": true,
+    "entry": "scripts/run.py",
+    "triggers": [
+      "@xhs",
+      "@小红书",
+      "xhs daily",
+      "生成小红书日报"
+    ]
+  }
 }
