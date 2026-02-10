@@ -46,7 +46,7 @@
   },
   
   "output": {
-    "save_directory": "output",
+    "save_directory": "D:\\vibe_coding",
     "formats": ["txt"],
     "auto_save": true
   },

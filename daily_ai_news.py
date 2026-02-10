@@ -23,7 +23,17 @@ class XHSAIDailyPublisher:
     def __init__(self, config_path: str = None):
         self.config = self._load_config(config_path)
         self.news_data = []
-        self.output_dir = Path(__file__).parent / self.config.get('output', {}).get('save_directory', 'output')
+        
+        # 处理输出目录（支持绝对路径）
+        output_config = self.config.get('output', {})
+        save_dir = output_config.get('save_directory', 'output')
+        
+        # 如果是绝对路径，直接使用；否则相对于脚本目录
+        if Path(save_dir).is_absolute():
+            self.output_dir = Path(save_dir)
+        else:
+            self.output_dir = Path(__file__).parent / save_dir
+        
         self.output_dir.mkdir(exist_ok=True)
     
     def _load_config(self, config_path: str = None) -> dict:
