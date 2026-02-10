@@ -1,0 +1,17 @@
+{
+  "name": "xhs-tech-blogger",
+  "version": "2.0.0",
+  "description": "小红书AI技术博主工具 - 自动生成AI日报并发布到小红书",
+  "main": "scripts/generate_daily.py",
+  "bin": {
+    "xhs-daily": "./scripts/generate_daily.py"
+  },
+  "keywords": ["xiaohongshu", "ai", "news", "blogger", "daily"],
+  "env": {
+    "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+  },
+  "scripts": {
+    "daily": "python scripts/generate_daily.py",
+    "publish": "python scripts/publish.py"
+  }
+}
