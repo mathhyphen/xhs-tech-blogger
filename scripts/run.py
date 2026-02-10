@@ -13,16 +13,38 @@ import os
 from pathlib import Path
 
 def get_skill_dir():
-    """获取 skill 目录"""
-    # 尝试多种方式找到 skill 目录
+    """获取 skill 目录 - 优先从配置读取，支持自定义路径"""
     
-    # 方式1: 通过环境变量（OpenClaw 设置）
-    skill_dir = os.environ.get('OPENCLAW_SKILL_DIR')
-    if skill_dir:
-        return Path(skill_dir)
+    # 方式1: 尝试读取配置文件中的路径
+    try:
+        # 查找配置文件
+        possible_configs = [
+            Path.home() / '.openclaw' / 'workspace' / 'skills' / 'xhs-tech-blogger' / 'config.json',
+            Path(__file__).parent.parent / 'config.json',
+            Path(r'D:\apps\xhs_openclaw') / 'config.json',
+        ]
+        
+        for config_path in possible_configs:
+            if config_path.exists():
+                import json
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                
+                paths = config.get('paths', {})
+                skill_root = paths.get('skill_root', '.')
+                
+                # 如果是绝对路径，直接使用
+                if skill_root and Path(skill_root).is_absolute():
+                    if Path(skill_root).exists():
+                        return Path(skill_root)
+                
+                # 否则使用配置文件所在目录
+                if config_path.parent.exists():
+                    return config_path.parent
+    except Exception:
+        pass
     
     # 方式2: 通过当前文件位置
-    # 脚本位于: <skill_dir>/scripts/run.py
     this_file = Path(__file__).resolve()
     if this_file.parent.name == 'scripts':
         return this_file.parent.parent
@@ -32,8 +54,13 @@ def get_skill_dir():
     if workspace.exists():
         return workspace
     
-    # 方式4: 默认位置
-    return Path(r'D:\apps\xhs_openclaw')
+    # 方式4: 默认位置（可配置）
+    default = Path(r'D:\apps\xhs_openclaw')
+    if default.exists():
+        return default
+    
+    # 最后回退到当前目录
+    return Path.cwd()
 
 def main():
     """主入口函数"""

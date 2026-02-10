@@ -24,17 +24,27 @@ class XHSAIDailyPublisher:
         self.config = self._load_config(config_path)
         self.news_data = []
         
-        # 处理输出目录（支持绝对路径）
-        output_config = self.config.get('output', {})
-        save_dir = output_config.get('save_directory', 'output')
+        # 处理路径配置
+        paths_config = self.config.get('paths', {})
         
-        # 如果是绝对路径，直接使用；否则相对于脚本目录
-        if Path(save_dir).is_absolute():
-            self.output_dir = Path(save_dir)
+        # skill_root: 默认为当前脚本所在目录
+        skill_root = paths_config.get('skill_root', '.')
+        if skill_root == '.' or not Path(skill_root).is_absolute():
+            self.skill_root = Path(__file__).parent
         else:
-            self.output_dir = Path(__file__).parent / save_dir
+            self.skill_root = Path(skill_root)
+        
+        # output: 从 paths.output 或 output.save_directory 读取
+        output_path = paths_config.get('output') or self.config.get('output', {}).get('save_directory', 'output')
+        if Path(output_path).is_absolute():
+            self.output_dir = Path(output_path)
+        else:
+            self.output_dir = self.skill_root / output_path
         
         self.output_dir.mkdir(exist_ok=True)
+        
+        print(f"[Config] Skill root: {self.skill_root}")
+        print(f"[Config] Output dir: {self.output_dir}")
     
     def _load_config(self, config_path: str = None) -> dict:
         """加载配置文件"""

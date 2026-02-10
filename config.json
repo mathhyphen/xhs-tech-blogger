@@ -45,8 +45,14 @@
     "note": "如需启用封面图生成，将 enabled 设为 true。确保已运行: npx clawhub@latest install nano-banana-pro"
   },
   
+  "paths": {
+    "skill_root": ".",
+    "output": "D:\\vibe_coding",
+    "note": "支持绝对路径或相对于 skill 目录的相对路径"
+  },
+  
   "output": {
-    "save_directory": "D:\\vibe_coding",
+    "save_directory": "${paths.output}",
     "formats": ["txt"],
     "auto_save": true
   },
