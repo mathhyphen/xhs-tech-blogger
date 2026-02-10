@@ -1,77 +1,123 @@
 ---
 name: xhs-tech-blogger
-version: 1.0.0
+version: 2.0.0
 description: |
-  小红书 AI 技术文档博主工具
-  自动搜索技术文档、生成文章、配图并发布到小红书
+  小红书AI技术博主工具 - 多源新闻自动版
+  自动从多新闻源收集AI热点、生成文章，使用OpenClaw Browser发布到小红书
 ---
 
-# XHS Tech Blogger - 小红书技术博主工具
+# XHS Tech Blogger v2.0
 
-## 功能
+自动收集AI新闻 → 生成小红书文章 → 一键发布
 
-- 🔍 **智能搜索**: 自动搜索技术官方文档
-- 📝 **文章生成**: 生成 Markdown 格式的技术文章
-- 🎨 **自动配图**: 使用 nano-banana-pro 生成配图
-- 🏷️ **标签推荐**: 智能推荐小红书标签
-- 📤 **一键发布**: 自动发布到小红书
+## 核心功能
 
-## 使用方式
+- 🔥 **多源新闻收集**: ai-news-collectors + news-aggregator-skill-2 + TechMeme
+- 🔄 **智能去重**: 自动去重、筛选、排序
+- 📝 **文章生成**: 生成小红书格式的AI热点文章
+- 📤 **一键发布**: 使用OpenClaw Browser自动发布
 
-### 单技术文章
+## 系统要求
 
-```bash
-# 生成单技术文章
-python xhs_tech_blogger.py "Claude 3.5"
+- OpenClaw 已安装
+- OpenClaw Browser 已连接（Chrome扩展）
+- ai-news-collectors skill 已安装
+- news-aggregator-skill-2 已安装
 
-# 生成并自动发布
-python xhs_tech_blogger.py "Claude 3.5" --publish
-```
+## 快速开始
 
-### 技术对比文章
+### 1. 安装依赖Skills
 
 ```bash
-# 生成对比文章
-python xhs_tech_blogger.py --compare "GPT-4o" "Claude 3.5" "Kimi K2.5"
+npx clawhub@latest install ai-news-collectors
+npx clawhub@latest install news-aggregator-skill-2
+
+# 确认OpenClaw Browser已连接
+openclaw browser status
 ```
 
-### 在 OpenClaw 中使用
+### 2. 生成AI日报
+
+```bash
+python daily_ai_news.py
+```
+
+输出: `output/xhs_ai_news_YYYYMMDD.txt`
+
+### 3. 发布到小红书
+
+```bash
+python xhs_auto_publish.py --latest
+```
+
+自动打开小红书创作平台并填写内容，用户手动上传封面图后发布。
+
+## 完整工作流
+
+```bash
+# 1. 生成日报
+python daily_ai_news.py
+
+# 2. 发布（自动打开浏览器并填写内容）
+python xhs_auto_publish.py --latest
+
+# 3. 在小红书页面中：
+#    - 点击"上传图文"
+#    - 确认标题和正文已填写
+#    - 手动上传封面图
+#    - 点击发布
+```
+
+## 文件结构
 
 ```
-@daily 帮我写一篇关于 Qwen 3.5 的小红书文章
+xhs_openclaw/
+├── config.json              # 配置文件
+├── daily_ai_news.py         # AI日报生成器（核心）
+├── xhs_auto_publish.py      # 一键发布脚本
+├── xhs_tech_blogger.py      # 单技术文章生成（可选）
+├── test_setup.py            # 环境检查
+├── requirements.txt         # Python依赖（无特殊依赖）
+├── README.md                # 使用说明
+├── SKILL.md                 # 本文件
+└── output/                  # 输出目录
+    └── xhs_ai_news_*.txt    # 生成的日报
 ```
 
-## 配置
+## 配置说明
 
 编辑 `config.json`:
 
 ```json
 {
-  "xhs": {
-    "api_key": "your_xiaohongshu_api_key",
-    "api_secret": "your_xiaohongshu_api_secret"
+  "news_sources": {
+    "ai_news_collectors": {"enabled": true},
+    "news_aggregator": {"enabled": true},
+    "techmeme": {"enabled": true}
   },
-  "nano_banana": {
-    "enabled": true,
-    "api_key": "your_gemini_api_key"
+  "xiaohongshu": {
+    "default_tags": ["AI", "人工智能", "科技热点"]
   }
 }
 ```
 
-## 输出
+## 关于封面图
 
-生成的内容保存在 `posts/` 目录：
-- `article.md` - Markdown 原文
-- `xiaohongshu.txt` - 小红书格式
-- `cover.png` - 配图
-- `meta.json` - 元数据
+**默认不生成封面图**，原因：
+- 小红书对图片风格有特定要求
+- 用户通常有自己的封面模板
 
-## 依赖
+**如需封面图，建议**：
+- 手动上传自己的封面模板
+- 使用 nano-banana-pro skill 生成
+- 使用其他AI图片工具
 
-- Python 3.9+
-- requests
-- nano-banana-pro (可选，用于配图)
+## 注意事项
 
-## 作者
+1. **纯Python标准库**：无需安装playwright/Pillow
+2. **浏览器操作**：全部使用OpenClaw Browser
+3. **小红书发布**：自动填写内容，但需手动上传图片和点击发布（避免风控）
 
-AI Tech Blogger
+## License
+
+MIT

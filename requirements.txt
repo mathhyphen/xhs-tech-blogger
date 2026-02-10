@@ -1,5 +1,5 @@
-requests>=2.31.0
-python-dotenv>=1.0.0
-pillow>=10.0.0
-markdown>=3.5.0
-beautifulsoup4>=4.12.0
+# XHS Tech Blogger 依赖
+# 注：新闻收集使用OpenClaw Skills，无需额外Python依赖
+# 浏览器操作使用OpenClaw Browser，无需playwright
+# 图片生成使用nano-banana-pro skill，无需Pillow
+# 本工具纯Python标准库实现
