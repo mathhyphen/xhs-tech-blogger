@@ -25,8 +25,8 @@ venv/
 ENV/
 env/
 
-# Config with user secrets (keep example)
-# config.json - now included as default config
+# Local user config (not committed)
+config.local.json
 
 # Output
 posts/
@@ -42,3 +42,7 @@ posts/
 # OS
 .DS_Store
 Thumbs.db
+
+# Temp files
+*.tmp
+*.temp

@@ -39,11 +39,10 @@
     "enabled": false,
     "provider": "nano-banana-pro",
     "skill_name": "nano-banana-pro",
-    "skill_path": "C:\\Users\\Administrator\\.openclaw\\workspace-coder\\openclaw-skills-repo\\skills\\steipete\\nano-banana-pro",
     "description": "使用 nano-banana-pro skill 生成封面图（默认不启用）",
     "command": "npx openclaw skills run nano-banana-pro",
     "prompt_template": "AI daily news cover, dark blue gradient background, neon cyan glow effects, futuristic AI circuit patterns, clean minimalist style, vertical 3:4 layout, high quality",
-    "note": "如需启用封面图生成，将 enabled 设为 true"
+    "note": "如需启用封面图生成，将 enabled 设为 true。确保已运行: npx clawhub@latest install nano-banana-pro"
   },
   
   "output": {
