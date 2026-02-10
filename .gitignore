@@ -28,7 +28,9 @@ env/
 # Local user config (not committed)
 config.local.json
 
-# Output
+# Output files (generated, not committed)
+output/*.png
+output/*.txt
 posts/
 *.log
 
